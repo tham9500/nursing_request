@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:android_id/android_id.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -22,6 +22,9 @@ class AppInfoController extends GetxController {
   var notificationGranted = false.obs;
   var storageGranted = false.obs;
   var locationGranted = false.obs;
+  String connectionUrl = '';
+  String connectionUsername = '';
+  String connectionPassword = '';
 
   getDeviceInfo() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -107,6 +110,14 @@ class AppInfoController extends GetxController {
     String appVersionString = 'แอปเวอร์ชั่น: ${appVersion.value}';
 
     return '$modelString\n$osString\n$uuidString\n$appVersionString';
+  }
+
+  getENV() async {
+    await dotenv.load();
+    connectionUrl = dotenv.get('mongoDB');
+    connectionUsername = dotenv.get('id');
+    connectionUsername = dotenv.get('password');
+    print(connectionUrl);
   }
 
   onLogout() async {
