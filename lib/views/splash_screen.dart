@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 import 'package:nursing_request/constant/secure_storage.dart';
 import 'package:nursing_request/constant/value_constant.dart';
 import 'package:nursing_request/controller/app_info_controller.dart';
-import 'package:nursing_request/views/intro/view/intro_page.dart';
+import 'package:nursing_request/views/home/view/home.dart';
+import 'package:nursing_request/views/login/view/login_page.dart';
 import 'package:nursing_request/widgets/custom_text.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -28,18 +29,13 @@ class _SplashScreenState extends State<SplashScreen> {
   _delay() async {
     await Future.delayed(const Duration(seconds: 2));
 
-    // String? intro = await getInitApp();
-    // String? login = await getLogIn();
+    String? login = await getLogin();
 
-    // if (intro == null) {
-    Get.offAll(() => const IntroPage());
-    // } else {
-    //   if (login != null) {
-    //     Get.offAll(() => const CustomBottomNav());
-    //   } else {
-    //     Get.offAll(() => const LoginPage());
-    //   }
-    // }
+    if (login != null) {
+      Get.offAll(() => const HomePage());
+    } else {
+      Get.offAll(() => const LoginPage());
+    }
   }
 
   @override
@@ -72,7 +68,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 8,
             ),
             const Padding(
-              padding: EdgeInsets.symmetric(horizontal: marginX6),
+              padding: EdgeInsets.symmetric(horizontal: 440),
               child: LinearProgressIndicator(),
             ),
             const SizedBox(

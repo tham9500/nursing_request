@@ -10,3 +10,15 @@ setInitApp(String value) async {
   await storage.write(key: 'onInitApp', value: value);
 }
 
+Future<String?> getLogin() async {
+  return await storage.read(key: 'login');
+}
+
+Future<String?> setLogin(String value) async {
+  await storage.write(key: 'login', value: value);
+}
+
+Future<String?> deleteLogIn() async {
+  await storage.delete(key: 'login');
+}
+
