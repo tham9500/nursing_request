@@ -3,6 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:nursing_request/constant/value_constant.dart';
 import 'package:nursing_request/views/login/controller/login_controller.dart';
+import 'package:nursing_request/views/register/view/register_page.dart';
 import 'package:nursing_request/widgets/custom_submit_btn.dart';
 import 'package:nursing_request/widgets/custom_text.dart';
 import 'package:nursing_request/widgets/custom_textfield.dart';
@@ -41,7 +42,6 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _icon(),
               Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: Get.height * 0.6,
@@ -63,19 +63,14 @@ class _LoginPageState extends State<LoginPage> {
               ),
               _cardInput(),
               _loginButton(),
+              const SizedBox(
+                height: 8.0,
+              ),
+              _registerButton(),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  _icon() {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: Get.height * 0.58,
-      ),
-      child: Image.asset('assets/icons/RJ.png'),
     );
   }
 
@@ -156,6 +151,25 @@ class _LoginPageState extends State<LoginPage> {
         isGradient: true,
         gradientColor1: primaryColor,
         gradientColor2: secondaryColor,
+      ),
+    );
+  }
+
+  _registerButton() {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: Get.height * 0.6,
+      ),
+      child: CustomSubmitButton(
+        onTap: () async {
+          Get.to(() => const RegisterPage());
+        },
+        title: 'ลงทะเบียน',
+        fontColor: textColorBlack,
+        color: Colors.transparent,
+        border: Border.all(width: 0.5, color: primaryColor),
+        borderRadius: 10.0,
+        isGradient: false,
       ),
     );
   }

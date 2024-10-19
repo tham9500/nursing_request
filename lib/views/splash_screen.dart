@@ -27,6 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _delay() async {
+    await _appInfoController.getENV();
     await Future.delayed(const Duration(seconds: 2));
 
     String? login = await getLogin();
@@ -69,7 +70,9 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 440),
-              child: LinearProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: primaryColor,
+              ),
             ),
             const SizedBox(
               height: 8,

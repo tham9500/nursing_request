@@ -21,6 +21,7 @@ dependencies:
   permission_handler: ^11.3.1
   google_maps_flutter: ^2.9.0
   flutter_launcher_icons: ^0.14.1
+  flutter_dotenv: ^5.2.1
 
 dev_dependencies:
   flutter_test:
@@ -48,6 +49,7 @@ flutter_launcher_icons:
 flutter:
   uses-material-design: true
   assets:
+    - .env
     - assets/logo/
     - assets/images/
     - assets/icons/
