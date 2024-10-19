@@ -3,8 +3,9 @@ import 'dart:io';
 import 'package:android_id/android_id.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:get/get.dart' hide Response;
+import 'package:get/get.dart';
 import 'package:ios_utsname_ext/extension.dart';
+import 'package:nursing_request/views/login/view/login_page.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -15,8 +16,11 @@ class AppInfoController extends GetxController {
   var os = ''.obs;
   var uuid = ''.obs;
 
+  var cameraGranted = false.obs;
+  var micriphoneGranted = false.obs;
   var galleryGranted = false.obs;
   var notificationGranted = false.obs;
+  var storageGranted = false.obs;
   var locationGranted = false.obs;
 
   getDeviceInfo() async {
@@ -59,6 +63,11 @@ class AppInfoController extends GetxController {
       notificationGranted(true);
     } else {
       notificationGranted(false);
+    }
+    if (await Permission.camera.isGranted) {
+      cameraGranted(true);
+    } else {
+      cameraGranted(false);
     }
 
     bool useStoragePermission = false;
@@ -120,6 +129,6 @@ class AppInfoController extends GetxController {
     //todo Remove on PRD
     // await storage.deleteAll();
 
-    // Get.offAll(() => const LoginPage());
+    Get.offAll(() => const LoginPage());
   }
 }
