@@ -5,7 +5,6 @@ import 'package:nursing_request/constant/secure_storage.dart';
 import 'package:nursing_request/constant/value_constant.dart';
 import 'package:nursing_request/controller/app_info_controller.dart';
 import 'package:nursing_request/views/home/view/home.dart';
-import 'package:nursing_request/views/login/view/login_page.dart';
 import 'package:nursing_request/widgets/custom_text.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -27,16 +26,13 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _delay() async {
-    await _appInfoController.getENV();
     await Future.delayed(const Duration(seconds: 2));
 
     String? login = await getLogin();
 
-    if (login != null) {
-      Get.offAll(() => const HomePage());
-    } else {
-      Get.offAll(() => const LoginPage());
-    }
+    print(login);
+
+    Get.to(() => const HomePage());
   }
 
   @override
