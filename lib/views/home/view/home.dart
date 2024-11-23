@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nursing_request/constant/value_constant.dart';
+import 'package:nursing_request/controller/navigation_controller.dart';
+import 'package:nursing_request/views/focus_list/view/focus_list_pasge.dart';
+import 'package:nursing_request/views/patient_list/view/patient_list_page.dart';
+import 'package:nursing_request/views/progrsss_note/view/progress_note_page.dart';
 import 'package:nursing_request/widgets/custom_drawer.dart';
 import 'package:nursing_request/widgets/custom_text.dart';
 
@@ -11,8 +16,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  NavigationController navigationController = Get.find();
+
   @override
   Widget build(BuildContext context) {
+    List page = [
+      const ProgressNotePage(),
+      const FocusListPage(),
+      const PatientListPage(),
+    ];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
@@ -50,10 +62,23 @@ class _HomePageState extends State<HomePage> {
         label1: 'Nurse Progress Note',
         label2: 'Focus List',
         label3: 'Patient List',
-        select1: () {},
-        select2: () {},
-        select3: () {},
+        select1: () {
+          navigationController.currentIndex.value = 0;
+          setState(() {});
+          Scaffold.of(context).closeDrawer();
+        },
+        select2: () {
+          navigationController.currentIndex.value = 1;
+          setState(() {});
+          Scaffold.of(context).closeDrawer();
+        },
+        select3: () {
+          navigationController.currentIndex.value = 2;
+          setState(() {});
+          Scaffold.of(context).closeDrawer();
+        },
       ),
+      body: page[navigationController.currentIndex.value],
     );
   }
 }

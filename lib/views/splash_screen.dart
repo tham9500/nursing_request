@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:nursing_request/constant/secure_storage.dart';
 import 'package:nursing_request/constant/value_constant.dart';
 import 'package:nursing_request/controller/app_info_controller.dart';
+import 'package:nursing_request/controller/navigation_controller.dart';
 import 'package:nursing_request/views/home/view/home.dart';
 import 'package:nursing_request/widgets/custom_text.dart';
 
@@ -16,6 +17,8 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   final AppInfoController _appInfoController = Get.put(AppInfoController());
+  final NavigationController _navigationController =
+      Get.put(NavigationController());
 
   @override
   void initState() {
