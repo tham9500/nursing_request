@@ -14,10 +14,12 @@ Future<String?> getLogin() async {
   return await storage.read(key: 'login');
 }
 
+// ignore: body_might_complete_normally_nullable
 Future<String?> setLogin(String value) async {
   await storage.write(key: 'login', value: value);
 }
 
+// ignore: body_might_complete_normally_nullable
 Future<String?> deleteLogIn() async {
   await storage.delete(key: 'login');
 }

@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nursing_request/constant/value_constant.dart';
@@ -44,15 +47,15 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
     progressNoteController.onAddPage();
     for (int i = 0; i < progressNoteController.page[0]['content'].length; i++) {
       dateShift.add(TextEditingController());
-      dateShift[i].text = progressNoteController.page[0]['content']['date'];
+      dateShift[i].text = progressNoteController.page[0]['content'][0]['date'];
       time.add(TextEditingController());
-      time[i].text = progressNoteController.page[0]['content']['time'];
+      time[i].text = progressNoteController.page[0]['content'][0]['time'];
       focus.add(TextEditingController());
-      focus[i].text = progressNoteController.page[0]['content']['focus'];
+      focus[i].text = progressNoteController.page[0]['content'][0]['focus'];
       note.add(TextEditingController());
-      note[i].text = progressNoteController.page[0]['content']['note'];
+      note[i].text = progressNoteController.page[0]['content'][0]['note'];
       name.add(TextEditingController());
-      name[i].text = progressNoteController.page[0]['content']['name'];
+      name[i].text = progressNoteController.page[0]['content'][0]['name'];
       setState(() {});
     }
   }
@@ -63,6 +66,8 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
     focus.clear();
     note.clear();
     name.clear();
+    progressNoteController.content.clear();
+
     patientName.text =
         progressNoteController.page[index][index]['profile']['patient'];
     age.text = progressNoteController.page[index]['profile']['age'];
@@ -72,7 +77,8 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
         progressNoteController.page[index]['profile']['department'];
     ward.text = progressNoteController.page[index]['profile']['attending'];
     attending.text = progressNoteController.page[index]['profile']['ward'];
-
+    progressNoteController.content =
+        progressNoteController.page[index]['content'];
     for (int i = 0;
         i < progressNoteController.page[index]['content'].length;
         i++) {
@@ -90,19 +96,22 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
     }
   }
 
-  addFocus() {
+  addFocus(int index) {
     progressNoteController.addFocus(
-      date: '',
-      time: '',
-      focus: '',
-      note: '',
-      name: '',
-    );
+        date: '', time: '', focus: '', note: '', name: '', index: index);
     dateShift.add(TextEditingController());
     time.add(TextEditingController());
     focus.add(TextEditingController());
     note.add(TextEditingController());
     name.add(TextEditingController());
+    setState(() {});
+  }
+
+  removeFocus(int index) {
+    progressNoteController.removeFocus(
+      indexPage: currentIndex,
+      indeContent: index,
+    );
     setState(() {});
   }
 
@@ -203,7 +212,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                       itemCount: progressNoteController
                           .page[currentIndex]['content'].length,
                       itemBuilder: (BuildContext context, int index) {
-                        return _textField(currentIndex);
+                        return _textField(index);
                       },
                     ),
                     Row(
@@ -502,6 +511,20 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                       CustomTextField(
                         controller: dateShift[index],
                         labelText: 'Date/Shift',
+                        onChanged: (value) {
+                          dateShift[index].text = value;
+                          progressNoteController.updateFocus(
+                            date: dateShift[index].text,
+                            time: time[index].text,
+                            focus: focus[index].text,
+                            note: note[index].text,
+                            name: name[index].text,
+                            indexPage: currentIndex,
+                            indexContent: index,
+                          );
+                          progressNoteController.saveAllProfile();
+                          setState(() {});
+                        },
                       ),
                     ],
                   ),
@@ -521,11 +544,43 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                       CustomTextField(
                         controller: time[index],
                         labelText: 'Time',
+                        onChanged: (value) {
+                          time[index].text = value;
+                          progressNoteController.updateFocus(
+                            date: dateShift[index].text,
+                            time: time[index].text,
+                            focus: focus[index].text,
+                            note: note[index].text,
+                            name: name[index].text,
+                            indexPage: currentIndex,
+                            indexContent: index,
+                          );
+                          progressNoteController.saveAllProfile();
+                          setState(() {});
+                        },
                       ),
                     ],
                   ),
                 ),
               ),
+              const Spacer(),
+              progressNoteController.page[currentIndex]['content'].length == 1
+                  ? Container()
+                  : SizedBox(
+                      width: Get.width * 0.05,
+                      child: CustomSubmitButton(
+                        onTap: () {
+                          removeFocus(index);
+                        },
+                        title: 'ลบ',
+                        color: Colors.transparent,
+                        fontColor: Colors.red,
+                        border: Border.all(
+                          width: 1.0,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ),
             ],
           ),
           const Padding(
@@ -540,6 +595,20 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
             child: CustomTextField(
               controller: focus[index],
               labelText: 'Focus',
+              onChanged: (value) {
+                focus[index].text = value;
+                progressNoteController.updateFocus(
+                  date: dateShift[index].text,
+                  time: time[index].text,
+                  focus: focus[index].text,
+                  note: note[index].text,
+                  name: name[index].text,
+                  indexPage: currentIndex,
+                  indexContent: index,
+                );
+                progressNoteController.saveAllProfile();
+                setState(() {});
+              },
             ),
           ),
           const Padding(
@@ -555,6 +624,20 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
               maxLine: 10,
               controller: note[index],
               labelText: '',
+              onChanged: (value) {
+                note[index].text = value;
+                progressNoteController.updateFocus(
+                  date: dateShift[index].text,
+                  time: time[index].text,
+                  focus: focus[index].text,
+                  note: note[index].text,
+                  name: name[index].text,
+                  indexPage: currentIndex,
+                  indexContent: index,
+                );
+                progressNoteController.saveAllProfile();
+                setState(() {});
+              },
             ),
           ),
           const Padding(
@@ -571,6 +654,20 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
               child: CustomTextField(
                 controller: name[index],
                 labelText: 'Name',
+                onChanged: (value) {
+                  name[index].text = value;
+                  progressNoteController.updateFocus(
+                    date: dateShift[index].text,
+                    time: time[index].text,
+                    focus: focus[index].text,
+                    note: note[index].text,
+                    name: name[index].text,
+                    indexPage: currentIndex,
+                    indexContent: index,
+                  );
+                  progressNoteController.saveAllProfile();
+                  setState(() {});
+                },
               ),
             ),
           ),
@@ -585,7 +682,9 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
       child: SizedBox(
         width: Get.width * 0.3,
         child: CustomSubmitButton(
-          onTap: addFocus,
+          onTap: () {
+            addFocus(currentIndex);
+          },
           title: 'เพิ่ม Focus',
           color: textColorWhite,
           fontColor: primaryColor,
@@ -605,14 +704,15 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
         width: Get.width * 0.3,
         child: CustomSubmitButton(
           onTap: () async {
-            final pdf = await createPdf();
-            await Printing.layoutPdf(
-              onLayout: (PdfPageFormat format) async => pdf.save(),
-            );
-            await Printing.sharePdf(
-              bytes: await pdf.save(),
-              filename: 'example.pdf',
-            );
+            log(jsonEncode(progressNoteController.page));
+            // final pdf = await createPdf();
+            // await Printing.layoutPdf(
+            //   onLayout: (PdfPageFormat format) async => pdf.save(),
+            // );
+            // await Printing.sharePdf(
+            //   bytes: await pdf.save(),
+            //   filename: 'example.pdf',
+            // );
           },
           title: 'พิมพ์',
         ),
