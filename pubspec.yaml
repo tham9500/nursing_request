@@ -23,6 +23,8 @@ dependencies:
   flutter_launcher_icons: ^0.14.1
   flutter_dotenv: ^5.2.1
   firebase_database: ^11.1.6
+  printing: ^5.13.4
+  pdf: ^3.11.1
 
 dev_dependencies:
   flutter_test:

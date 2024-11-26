@@ -17,6 +17,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   final AppInfoController _appInfoController = Get.put(AppInfoController());
+  // ignore: unused_field
   final NavigationController _navigationController =
       Get.put(NavigationController());
 
@@ -29,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _delay() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 3));
 
     String? login = await getLogin();
 
@@ -77,6 +78,10 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 8,
             ),
             _appVersion(),
+            const SizedBox(
+              height: 8,
+            ),
+            _reference(),
           ],
         ),
       ),
@@ -93,5 +98,21 @@ class _SplashScreenState extends State<SplashScreen> {
         color: textColorGrey,
       );
     });
+  }
+
+  _reference() {
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        CustomText(
+          'Ref : Wantana Thongsai',
+          color: textColorGrey,
+        ),
+        CustomText(
+          'Build : Tham Saleerueng',
+          color: textColorGrey,
+        ),
+      ],
+    );
   }
 }
