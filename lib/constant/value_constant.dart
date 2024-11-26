@@ -31,7 +31,7 @@ const textColorGrey = Colors.grey;
 const textColorGreen = Color.fromRGBO(45, 206, 152, 1);
 
 // color
-const primaryColor = Color.fromRGBO(1, 158, 223, 1);
+const primaryColor = Color.fromRGBO(231, 49, 189, 1);
 const secondaryColor = Color.fromRGBO(203, 214, 249, 1);
 
 // maps
@@ -51,6 +51,6 @@ const double marginX5 = 40.0;
 const double marginX6 = 60.0;
 
 // bottom navigation bar
-const navigationBarHeight = 65.0;
+const navigationBarHeight = 100.0;
 
 const LatLng initialCameraPosition = LatLng(13.764906, 100.538352);

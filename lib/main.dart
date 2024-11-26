@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nursing_request/constant/value_constant.dart';
 import 'package:nursing_request/views/splash_screen.dart';
 
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Nursing Progress',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -36,4 +37,6 @@ class MyApp extends StatelessWidget {
       },
     );
   }
+
+  
 }
