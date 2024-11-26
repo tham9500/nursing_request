@@ -44,30 +44,35 @@ class ProgressNoteController extends GetxController {
       required String time,
       required String focus,
       required String note,
-      required String name}) {
+      required String name,
+      required int index}) {
     content.add({
-      "date": date,
-      "time": time,
-      "focus": focus,
-      "note": note,
-      "name": name,
+      "date": '',
+      "time": '',
+      "focus": '',
+      "note": '',
+      "name": '',
     });
+    page[index]['content'] = content;
   }
 
-  removeFocus(int index) {
-    content.removeAt(index);
+  removeFocus({required int indexPage, required int indeContent}) {
+    content.removeAt(indeContent);
+    page[indexPage]['content'] = content;
   }
 
   onAddPage() {
     page.add({
       'profile': profile,
-      'content': {
-        "date": '',
-        "time": '',
-        "focus": '',
-        "note": '',
-        "name": '',
-      }
+      'content': [
+        {
+          "date": '',
+          "time": '',
+          "focus": '',
+          "note": '',
+          "name": '',
+        }
+      ]
     });
   }
 
@@ -104,5 +109,21 @@ class ProgressNoteController extends GetxController {
     page.removeAt(index);
   }
 
-  deleteNote(int index) {}
+  updateFocus(
+      {required String date,
+      required String time,
+      required String focus,
+      required String note,
+      required String name,
+      required int indexPage,
+      required int indexContent}) {
+    content[indexContent] = {
+      "date": date,
+      "time": time,
+      "focus": focus,
+      "note": note,
+      "name": name,
+    };
+    page[indexPage]['content'] = content;
+  }
 }
