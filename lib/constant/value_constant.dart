@@ -51,6 +51,6 @@ const double marginX5 = 40.0;
 const double marginX6 = 60.0;
 
 // bottom navigation bar
-const navigationBarHeight = 65.0;
+const navigationBarHeight = 100.0;
 
 const LatLng initialCameraPosition = LatLng(13.764906, 100.538352);
