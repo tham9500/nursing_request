@@ -1,10 +1,17 @@
 import 'dart:developer';
-import 'dart:typed_data';
 
 import 'package:get/get.dart';
 
 class ProgressNoteController extends GetxController {
-  Map<String, dynamic> profile = {};
+  var profile = {
+    "patient": '',
+    "age": '',
+    "hn": '',
+    "an": '',
+    "department": '',
+    "attending": '',
+    "ward": '',
+  };
   List<dynamic> page = [];
   List<dynamic> content = [];
 
@@ -77,13 +84,13 @@ class ProgressNoteController extends GetxController {
   }
 
   onSaveProfile({
-    String? patient,
-    String? age,
-    String? hn,
-    String? an,
-    String? department,
-    String? attending,
-    String? ward,
+    required String patient,
+    required String age,
+    required String hn,
+    required String an,
+    required String department,
+    required String attending,
+    required String ward,
   }) {
     profile = {
       "patient": patient,
@@ -99,8 +106,6 @@ class ProgressNoteController extends GetxController {
 
   saveAllProfile() async {
     for (int i = 0; i < page.length; i++) {
-      print(page[i]['profile']);
-      print(profile);
       page[i]['profile'] = profile;
     }
   }
@@ -117,6 +122,7 @@ class ProgressNoteController extends GetxController {
       required String name,
       required int indexPage,
       required int indexContent}) {
+    print(content);
     content[indexContent] = {
       "date": date,
       "time": time,
@@ -125,5 +131,6 @@ class ProgressNoteController extends GetxController {
       "name": name,
     };
     page[indexPage]['content'] = content;
+    print(page[indexPage]['content']);
   }
 }
