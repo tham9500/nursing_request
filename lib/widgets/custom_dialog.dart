@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nursing_request/constant/value_constant.dart';
 import 'package:nursing_request/widgets/custom_text.dart';
 
 class CustomAlertDialog extends StatelessWidget {
@@ -38,7 +39,7 @@ class CustomAlertDialog extends StatelessWidget {
             CustomText(
               title,
               color: titleColor,
-              size: contentFontSize ?? 16.0,
+              size: contentFontSize ?? 24.0,
               weight: FontWeight.bold,
               align: TextAlign.center,
             ),
@@ -50,7 +51,7 @@ class CustomAlertDialog extends StatelessWidget {
                   CustomText(
                     content ?? '',
                     color: Colors.grey,
-                    size: 14.0,
+                    size: 16.0,
                     weight: FontWeight.bold,
                     align: TextAlign.center,
                   ),
@@ -73,7 +74,34 @@ class CustomAlertDialog extends StatelessWidget {
                 }
               },
               child: Container(
-                width: 140.0,
+                width: 100.0,
+                decoration: BoxDecoration(
+                  color: primaryColor,
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                  vertical: 8.0,
+                ),
+                child: Center(
+                  child: CustomText(
+                    'ตกลง',
+                    size: buttonFontSize ?? 14.0,
+                    weight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+            InkWell(
+              onTap: () {
+                Get.back();
+              },
+              child: Container(
+                width: 100.0,
                 decoration: BoxDecoration(
                   color: buttonColor,
                   borderRadius: BorderRadius.circular(20.0),
@@ -84,7 +112,7 @@ class CustomAlertDialog extends StatelessWidget {
                 ),
                 child: Center(
                   child: CustomText(
-                    'ตกลง',
+                    'ยกเลิก',
                     size: buttonFontSize ?? 14.0,
                     weight: FontWeight.bold,
                     color: Colors.white,
