@@ -20,7 +20,7 @@ class CustomTextField extends StatelessWidget {
   final Color? bgColor;
 
   const CustomTextField({
-    Key? key,
+    super.key,
     this.testKey = '',
     this.isEnabled = true,
     this.isRequired = true,
@@ -37,7 +37,7 @@ class CustomTextField extends StatelessWidget {
     this.inputType = TextInputType.text,
     this.validate = FloatingLabelBehavior.auto,
     this.bgColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
