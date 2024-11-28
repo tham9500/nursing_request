@@ -10,6 +10,7 @@ import 'package:nursing_request/widgets/custom_dialog.dart';
 import 'package:nursing_request/widgets/custom_loading.dart';
 import 'package:nursing_request/widgets/custom_submit_btn.dart';
 import 'package:nursing_request/widgets/custom_text.dart';
+import 'package:nursing_request/widgets/custom_text_area.dart';
 import 'package:nursing_request/widgets/custom_textfield.dart';
 import 'package:printing/printing.dart';
 import 'package:pdf/pdf.dart';
@@ -171,7 +172,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                       clearAllData();
                     },
                     child: Container(
-                      width: 120,
+                      width: 100,
                       height: 54,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
@@ -189,7 +190,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                     height: margin,
                   ),
                   Container(
-                    width: 120,
+                    width: 100,
                     height: 54,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100),
@@ -235,7 +236,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                                   borderRadius: BorderRadius.circular(10),
                                   color: currentIndex == index
                                       ? Colors.white54
-                                      : Colors.white12,
+                                      : Colors.white10,
                                 ),
                                 width: 100,
                                 height: 100,
@@ -779,7 +780,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                   width: Get.width * 0.5,
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: CustomTextField(
+                    child: CustomTextFieldArea(
                       bgColor: Colors.white,
                       maxLine: 10,
                       maxLength: 1000,
@@ -917,7 +918,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                         child: pw.Column(
                           children: [
                             pw.Padding(
-                              padding: const pw.EdgeInsets.all(8),
+                              padding: const pw.EdgeInsets.all(4),
                               child: pw.Text(
                                 'Date/Shift',
                                 textAlign: pw.TextAlign.left,
@@ -925,7 +926,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                                 style: pw.TextStyle(
                                   font: ttf,
                                   fontWeight: pw.FontWeight.normal,
-                                  fontSize: 12,
+                                  fontSize: 10,
                                 ),
                               ),
                             ),
@@ -935,7 +936,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                             //     'Shift',
                             //     style: pw.TextStyle(
                             //       fontWeight: pw.FontWeight.normal,
-                            //       fontSize: 12,
+                            //       fontSize: 10,
                             //     ),
                             //   ),
                             // ),
@@ -953,7 +954,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                             style: pw.TextStyle(
                               font: ttf,
                               fontWeight: pw.FontWeight.normal,
-                              fontSize: 12,
+                              fontSize: 10,
                             ),
                           ),
                         ),
@@ -969,7 +970,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                             style: pw.TextStyle(
                               font: ttf,
                               fontWeight: pw.FontWeight.normal,
-                              fontSize: 12,
+                              fontSize: 10,
                             ),
                           ),
                         ),
@@ -985,7 +986,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                             style: pw.TextStyle(
                               font: ttf,
                               fontWeight: pw.FontWeight.normal,
-                              fontSize: 12,
+                              fontSize: 10,
                             ),
                           ),
                         ),
@@ -1001,7 +1002,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                             style: pw.TextStyle(
                               font: ttf,
                               fontWeight: pw.FontWeight.normal,
-                              fontSize: 12,
+                              fontSize: 10,
                             ),
                           ),
                         ),
@@ -1022,7 +1023,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                             style: pw.TextStyle(
                               font: ttf,
                               fontWeight: pw.FontWeight.normal,
-                              fontSize: 12,
+                              fontSize: 10,
                             ),
                           ),
                         ),
@@ -1036,7 +1037,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                               style: pw.TextStyle(
                                 font: ttf,
                                 fontWeight: pw.FontWeight.normal,
-                                fontSize: 12,
+                                fontSize: 10,
                               ),
                             )),
                         pw.Padding(
@@ -1048,7 +1049,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                               style: pw.TextStyle(
                                 font: ttf,
                                 fontWeight: pw.FontWeight.normal,
-                                fontSize: 12,
+                                fontSize: 10,
                               ),
                             )),
                         pw.Container(
@@ -1062,7 +1063,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                                 style: pw.TextStyle(
                                   font: ttf,
                                   fontWeight: pw.FontWeight.normal,
-                                  fontSize: 12,
+                                  fontSize: 10,
                                 ),
                               )),
                         ),
@@ -1075,7 +1076,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                               style: pw.TextStyle(
                                 font: ttf,
                                 fontWeight: pw.FontWeight.normal,
-                                fontSize: 12,
+                                fontSize: 10,
                               ),
                             )),
                       ]),
@@ -1086,7 +1087,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                   children: [
                     pw.TableRow(children: [
                       pw.Container(
-                        width: 120,
+                        width: 100,
                         child: pw.Padding(
                           padding: const pw.EdgeInsets.all(8),
                           child: pw.Column(
@@ -1098,7 +1099,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                                 style: pw.TextStyle(
                                   font: ttf,
                                   fontWeight: pw.FontWeight.normal,
-                                  fontSize: 12,
+                                  fontSize: 10,
                                 ),
                               ),
                               pw.Text(
@@ -1106,7 +1107,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                                 style: pw.TextStyle(
                                   font: ttf,
                                   fontWeight: pw.FontWeight.normal,
-                                  fontSize: 12,
+                                  fontSize: 10,
                                 ),
                               ),
                               pw.Text(
@@ -1114,7 +1115,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                                 style: pw.TextStyle(
                                   font: ttf,
                                   fontWeight: pw.FontWeight.normal,
-                                  fontSize: 12,
+                                  fontSize: 10,
                                 ),
                               ),
                               pw.Text(
@@ -1122,7 +1123,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                                 style: pw.TextStyle(
                                   font: ttf,
                                   fontWeight: pw.FontWeight.normal,
-                                  fontSize: 12,
+                                  fontSize: 10,
                                 ),
                               ),
                             ],
@@ -1137,7 +1138,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                             style: pw.TextStyle(
                               font: ttf,
                               fontWeight: pw.FontWeight.normal,
-                              fontSize: 12,
+                              fontSize: 10,
                             ),
                           ),
                           pw.Text(
@@ -1145,7 +1146,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                             style: pw.TextStyle(
                               font: ttf,
                               fontWeight: pw.FontWeight.normal,
-                              fontSize: 12,
+                              fontSize: 10,
                             ),
                           ),
                           pw.Text(
@@ -1153,7 +1154,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                             style: pw.TextStyle(
                               font: ttf,
                               fontWeight: pw.FontWeight.normal,
-                              fontSize: 12,
+                              fontSize: 10,
                             ),
                           ),
                           pw.Text(
@@ -1161,7 +1162,7 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                             style: pw.TextStyle(
                               font: ttf,
                               fontWeight: pw.FontWeight.normal,
-                              fontSize: 12,
+                              fontSize: 10,
                             ),
                           ),
                         ]),
