@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nursing_request/constant/value_constant.dart';
 import 'package:nursing_request/views/progrsss_note/controller/progress_note_controller.dart';
@@ -772,32 +773,40 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                 size: fontSizeXL,
               ),
             ),
-            SizedBox(
-              width: Get.width * 0.5,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: CustomTextField(
-                  bgColor: Colors.white,
-                  maxLine: 10,
-                  maxLength: 1000,
-                  controller: note[index],
-                  labelText: '',
-                  onChanged: (value) {
-                    // note[index].text = value;
-                    progressNoteController.updateFocus(
-                      date: dateShift[index].text,
-                      time: time[index].text,
-                      focus: focus[index].text,
-                      note: note[index].text,
-                      name: name[index].text,
-                      indexPage: currentIndex,
-                      indexContent: index,
-                    );
-                    progressNoteController.saveAllProfile();
-                    setState(() {});
-                  },
+            Row(
+              children: [
+                SizedBox(
+                  width: Get.width * 0.5,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: CustomTextField(
+                      bgColor: Colors.white,
+                      maxLine: 10,
+                      maxLength: 1000,
+                      controller: note[index],
+                      labelText: '',
+                      onChanged: (value) {
+                        // note[index].text = value;
+                        progressNoteController.updateFocus(
+                          date: dateShift[index].text,
+                          time: time[index].text,
+                          focus: focus[index].text,
+                          note: note[index].text,
+                          name: name[index].text,
+                          indexPage: currentIndex,
+                          indexContent: index,
+                        );
+                        progressNoteController.saveAllProfile();
+                        setState(() {});
+                      },
+                    ),
+                  ),
                 ),
-              ),
+                CustomText(
+                  '${note[index].text.length}/1000',
+                  color: textColorGrey,
+                )
+              ],
             ),
             const Padding(
               padding: EdgeInsets.all(16.0),
@@ -883,52 +892,84 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
 
   Future<pw.Document> createPdf() async {
     final pdf = pw.Document();
+    final fontData = await rootBundle
+        .load('assets/fonts/SukhumvitSet/SukhumvitSet-Medium.ttf');
+    final ttf = pw.Font.ttf(fontData);
     for (int i = 0; i < progressNoteController.page.length; i++) {
       pdf.addPage(
         pw.Page(
+          pageFormat: PdfPageFormat.a4,
           build: (pw.Context context) {
             return pw.Column(
               children: [
                 pw.Text('Rajavithi Hospital - Nursing Progress Note',
                     style: pw.TextStyle(
-                        fontSize: 20, fontWeight: pw.FontWeight.bold)),
+                        font: ttf,
+                        fontSize: 20,
+                        fontWeight: pw.FontWeight.bold)),
                 pw.SizedBox(height: 20),
                 pw.Table(
                   border: pw.TableBorder.all(),
                   children: [
                     pw.TableRow(children: [
                       pw.Container(
-                        width: 72,
-                        child: pw.Padding(
-                          padding: const pw.EdgeInsets.all(8),
-                          child: pw.Text(
-                            'Date/Shift',
-                            style: pw.TextStyle(
-                              fontWeight: pw.FontWeight.normal,
+                        width: 64,
+                        child: pw.Column(
+                          children: [
+                            pw.Padding(
+                              padding: const pw.EdgeInsets.all(8),
+                              child: pw.Text(
+                                'Date/Shift',
+                                textAlign: pw.TextAlign.left,
+                                maxLines: 1,
+                                style: pw.TextStyle(
+                                  font: ttf,
+                                  fontWeight: pw.FontWeight.normal,
+                                  fontSize: 12,
+                                ),
+                              ),
                             ),
-                          ),
+                            // pw.Padding(
+                            //   padding: const pw.EdgeInsets.all(8),
+                            //   child: pw.Text(
+                            //     'Shift',
+                            //     style: pw.TextStyle(
+                            //       fontWeight: pw.FontWeight.normal,
+                            //       fontSize: 12,
+                            //     ),
+                            //   ),
+                            // ),
+                          ],
                         ),
                       ),
                       pw.Container(
-                        width: 64,
+                        width: 52,
                         child: pw.Padding(
                           padding: const pw.EdgeInsets.all(8),
                           child: pw.Text(
                             'Time',
+                            textAlign: pw.TextAlign.left,
+                            maxLines: 1,
                             style: pw.TextStyle(
+                              font: ttf,
                               fontWeight: pw.FontWeight.normal,
+                              fontSize: 12,
                             ),
                           ),
                         ),
                       ),
                       pw.Container(
-                        width: 64,
+                        width: 72,
                         child: pw.Padding(
                           padding: const pw.EdgeInsets.all(8),
                           child: pw.Text(
                             'Focus',
+                            textAlign: pw.TextAlign.left,
+                            maxLines: 1,
                             style: pw.TextStyle(
+                              font: ttf,
                               fontWeight: pw.FontWeight.normal,
+                              fontSize: 12,
                             ),
                           ),
                         ),
@@ -939,8 +980,12 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                           padding: const pw.EdgeInsets.all(8),
                           child: pw.Text(
                             'Progress Note',
+                            textAlign: pw.TextAlign.left,
+                            maxLines: 1,
                             style: pw.TextStyle(
+                              font: ttf,
                               fontWeight: pw.FontWeight.normal,
+                              fontSize: 12,
                             ),
                           ),
                         ),
@@ -951,8 +996,12 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                           padding: const pw.EdgeInsets.all(8),
                           child: pw.Text(
                             'Name',
+                            textAlign: pw.TextAlign.left,
+                            maxLines: 1,
                             style: pw.TextStyle(
+                              font: ttf,
                               fontWeight: pw.FontWeight.normal,
+                              fontSize: 12,
                             ),
                           ),
                         ),
@@ -968,6 +1017,13 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                           child: pw.Text(
                             progressNoteController.page[i]['content'][j]
                                 ['date'],
+                            maxLines: 1,
+                            textAlign: pw.TextAlign.left,
+                            style: pw.TextStyle(
+                              font: ttf,
+                              fontWeight: pw.FontWeight.normal,
+                              fontSize: 12,
+                            ),
                           ),
                         ),
                         pw.Padding(
@@ -975,12 +1031,25 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                             child: pw.Text(
                               progressNoteController.page[i]['content'][j]
                                   ['time'],
+                              maxLines: 1,
+                              textAlign: pw.TextAlign.left,
+                              style: pw.TextStyle(
+                                font: ttf,
+                                fontWeight: pw.FontWeight.normal,
+                                fontSize: 12,
+                              ),
                             )),
                         pw.Padding(
                             padding: const pw.EdgeInsets.all(8),
                             child: pw.Text(
                               progressNoteController.page[i]['content'][j]
                                   ['focus'],
+                              textAlign: pw.TextAlign.left,
+                              style: pw.TextStyle(
+                                font: ttf,
+                                fontWeight: pw.FontWeight.normal,
+                                fontSize: 12,
+                              ),
                             )),
                         pw.Container(
                           width: 200,
@@ -989,6 +1058,12 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                               child: pw.Text(
                                 progressNoteController.page[i]['content'][j]
                                     ['note'],
+                                textAlign: pw.TextAlign.start,
+                                style: pw.TextStyle(
+                                  font: ttf,
+                                  fontWeight: pw.FontWeight.normal,
+                                  fontSize: 12,
+                                ),
                               )),
                         ),
                         pw.Padding(
@@ -996,11 +1071,16 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                             child: pw.Text(
                               progressNoteController.page[i]['content'][j]
                                   ['name'],
+                              textAlign: pw.TextAlign.left,
+                              style: pw.TextStyle(
+                                font: ttf,
+                                fontWeight: pw.FontWeight.normal,
+                                fontSize: 12,
+                              ),
                             )),
                       ]),
                   ],
                 ),
-                pw.SizedBox(height: 20),
                 pw.Table(
                   border: pw.TableBorder.all(),
                   children: [
@@ -1016,25 +1096,33 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                               pw.Text(
                                 'Name ${progressNoteController.page[i]['profile']['patient'] ?? '...................'}  Age ${progressNoteController.page[i]['profile']['age'] ?? '...................'}',
                                 style: pw.TextStyle(
+                                  font: ttf,
                                   fontWeight: pw.FontWeight.normal,
+                                  fontSize: 12,
                                 ),
                               ),
                               pw.Text(
                                 'HN ${progressNoteController.page[i]['profile']['hn'] ?? '...................'}  AN ${progressNoteController.page[i]['profile']['an'] ?? '...................'}',
                                 style: pw.TextStyle(
+                                  font: ttf,
                                   fontWeight: pw.FontWeight.normal,
+                                  fontSize: 12,
                                 ),
                               ),
                               pw.Text(
                                 'Ward ${progressNoteController.page[i]['profile']['ward'] ?? '...................'}',
                                 style: pw.TextStyle(
+                                  font: ttf,
                                   fontWeight: pw.FontWeight.normal,
+                                  fontSize: 12,
                                 ),
                               ),
                               pw.Text(
                                 'Print/Name Label',
                                 style: pw.TextStyle(
+                                  font: ttf,
                                   fontWeight: pw.FontWeight.normal,
+                                  fontSize: 12,
                                 ),
                               ),
                             ],
@@ -1047,25 +1135,33 @@ class _ProgressNotePageState extends State<ProgressNotePage> {
                           pw.Text(
                             'Department of Service',
                             style: pw.TextStyle(
+                              font: ttf,
                               fontWeight: pw.FontWeight.normal,
+                              fontSize: 12,
                             ),
                           ),
                           pw.Text(
                             '${progressNoteController.page[i]['profile']['department'] ?? '..............................'}',
                             style: pw.TextStyle(
+                              font: ttf,
                               fontWeight: pw.FontWeight.normal,
+                              fontSize: 12,
                             ),
                           ),
                           pw.Text(
                             'Attending Physician',
                             style: pw.TextStyle(
+                              font: ttf,
                               fontWeight: pw.FontWeight.normal,
+                              fontSize: 12,
                             ),
                           ),
                           pw.Text(
                             '${progressNoteController.page[i]['profile']['attending'] ?? '..............................'}',
                             style: pw.TextStyle(
+                              font: ttf,
                               fontWeight: pw.FontWeight.normal,
+                              fontSize: 12,
                             ),
                           ),
                         ]),
