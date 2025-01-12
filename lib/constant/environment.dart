@@ -10,19 +10,19 @@ String getBaseURL() {
 
   switch (env) {
     case Environment.production:
-      baseURL = 'https://api-v2.terminusfleet.com/api/';
+      baseURL = '';
       break;
 
     case Environment.staging:
-      baseURL = 'https://api-v2-staging.terminusfleet.com/api/';
+      baseURL = '';
       break;
 
     case Environment.development:
-      baseURL = 'https://test-v2-api.terminusfleet.com/api/';
+      baseURL = '';
       break;
 
     default:
-      baseURL = 'https://api-v2.terminusfleet.com/api/';
+      baseURL = '';
   }
 
   return baseURL;
